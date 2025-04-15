@@ -4,12 +4,14 @@ export interface Pizza {
     ingredients: string[]
 }
 
-export interface Orders {
-    items: OrderItem[],
+export interface Order {
+    id: string
+    items: OrderItems[],
     total: number,
 }
 
-interface OrderItem {
-    pizza: Pizza,
+export interface OrderItems {
+    pizza_id: string,
     qty: number,
+    item_price: number
 }
