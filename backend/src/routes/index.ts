@@ -1,12 +1,9 @@
-import express, { Request, Response, NextFunction } from "express";
+import { Router } from 'express';
+import pizzaRouter from './pizzaRouter';
 
-const router = express.Router();
+const router = Router();
 
-router.get("/", (req: Request, res: Response) => {
-    const dummy = {
-        lorem: "Ipsum",
-    }
-    res.status(200).json(dummy);
-});
+
+router.use('/api/pizzas', pizzaRouter);
 
 export default router;
