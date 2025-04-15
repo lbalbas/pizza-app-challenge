@@ -1,30 +1,13 @@
-import { useEffect, useState } from "react";
 import { Pizza } from "../utils/types.ts";
-import { api } from '../utils/api.ts'
 
-export const PizzaContainer = (_props: { addPizzaToOrder: (pizza: Pizza) => void }) => {
-    const [pizzas, setPizzas] = useState<Pizza[]>([]);
-
-    const { addPizzaToOrder } = _props;
-
-    useEffect(() => {
-        const fetchPizzas = async () => {
-            try {
-                const { data } = await api.get('/api/pizzas');
-                setPizzas(data);
-            } catch (err) {
-                console.error('Failed to load pizzas:', err);
-            }
-        };
-        fetchPizzas();
-    }, []);
+export const PizzaContainer = (_props: {
+    addPizzaToOrder: (pizza: Pizza) => void,
+    pizzas: Pizza[]
+}) => {
+    const { addPizzaToOrder, pizzas } = _props;
 
     if (pizzas.length === 0) {
-        return (
-            <main>
-                <h1>Loading...</h1>
-            </main>
-        )
+        return <h1>Loading...</h1>;
     }
 
     return (
