@@ -1,5 +1,6 @@
 [
     {
+        "id": "1",
         "name": "Margherita",
         "price": 5,
         "ingredients": [
@@ -8,6 +9,7 @@
         ]
     },
     {
+        "id": "2",
         "name": "Bufala",
         "price": 6,
         "ingredients": [
@@ -16,6 +18,7 @@
         ]
     },
     {
+        "id": "3",
         "name": "Romana",
         "price": 5,
         "ingredients": [
@@ -27,6 +30,7 @@
         ]
     },
     {
+        "id": "4",
         "name": "Diavola",
         "price": 7.5,
         "ingredients": [
@@ -36,6 +40,7 @@
         ]
     },
     {
+        "id": "5",
         "name": "Pizza Bianca",
         "price": 5,
         "ingredients": [
