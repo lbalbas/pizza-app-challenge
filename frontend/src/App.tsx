@@ -37,14 +37,14 @@ function App() {
   }
 
   return (
-    <>
-      <h1 className="text-center text-3xl font-bold mt-8">PizzaApp</h1>
+    <div className="w-11/12 mx-auto py-8">
+      <h1 className="text-center text-3xl lg:text-4xl font-bold mb-4 text-stone-900">PizzaApp</h1>
       <div className="flex flex-col lg:flex-row">
-        <Order pizzas={pizzas} order={order} />
         <PizzaContainer pizzas={pizzas} addPizzaToOrder={addPizzaToOrder} />
+        <Order pizzas={pizzas} order={order} />
       </div>
       <ToastContainer />
-    </>
+    </div>
   )
 }
 
