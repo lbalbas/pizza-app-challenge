@@ -27,6 +27,6 @@
   "include": [
     "src",
     "./jest.setup.ts",
-    "src/__mocks__"
+    "src/tests/__mocks__"
   ]
 }
