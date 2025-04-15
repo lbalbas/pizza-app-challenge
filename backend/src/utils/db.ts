@@ -1,7 +1,7 @@
 import fs from 'fs/promises';
 import path from 'path';
 
-const DATA_PATH = path.join(__dirname, '../data');
+const DATA_PATH = path.resolve(process.cwd(), 'src/data');
 
 export async function readData(fileName: string) {
     const data = await fs.readFile(`${DATA_PATH}/${fileName}`, 'utf-8');
