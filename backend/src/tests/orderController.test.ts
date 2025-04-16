@@ -5,9 +5,17 @@ describe('Order Controller', () => {
     it('should create a new order', async () => {
         const newOrder = await createOrder([
             {
-                pizza_id: "1",
-                qty: 2,
-                item_price: 10
+                pizza: {
+                    "id": "2",
+                    "name": "Bufala",
+                    "price": 6,
+                    "ingredients": [
+                        "tomato",
+                        "mozarella di bufala"
+                    ]
+                },
+                item_price: 6,
+                qty: 1,
             }
         ]);
 
@@ -15,12 +23,18 @@ describe('Order Controller', () => {
             id: expect.any(String),
             items: [
                 {
-                    pizza_id: '1',
-                    item_price: 10,
-                    qty: 2,
+                    pizza: {
+                        "id": "2",
+                        "name": "Bufala",
+                        "price": 6,
+                        "ingredients": [
+                            "tomato",
+                            "mozarella di bufala"
+                        ]
+                    }, item_price: 6, qty: 1
                 },
             ],
-            total: 10
+            total: 6
         });
 
         const orders = await getOrders();
@@ -28,16 +42,56 @@ describe('Order Controller', () => {
     });
     it("should return order by id", async () => {
         const order = await createOrder([
-            { pizza_id: '1', item_price: 10, qty: 2 },
-            { pizza_id: '2', item_price: 6, qty: 1 }
+            {
+                pizza: {
+                    "id": "1",
+                    "name": "Margherita",
+                    "price": 5,
+                    "ingredients": [
+                        "tomato",
+                        "mozzarella"
+                    ]
+                }, item_price: 10, qty: 2
+            },
+            {
+                pizza: {
+                    "id": "2",
+                    "name": "Bufala",
+                    "price": 6,
+                    "ingredients": [
+                        "tomato",
+                        "mozarella di bufala"
+                    ]
+                }, item_price: 6, qty: 1
+            }
         ]);
         const foundOrder = await getOrderById(order.id);
         expect(foundOrder).toMatchObject(order);
     })
     it('should calculate total price', async () => {
         const order = await createOrder([
-            { pizza_id: '1', item_price: 10, qty: 2 },  // 2x5 = 10
-            { pizza_id: '2', item_price: 6, qty: 1 }   // 1x6 = 6
+            {
+                pizza: {
+                    "id": "1",
+                    "name": "Margherita",
+                    "price": 5,
+                    "ingredients": [
+                        "tomato",
+                        "mozzarella"
+                    ]
+                }, item_price: 10, qty: 2
+            },
+            {
+                pizza: {
+                    "id": "2",
+                    "name": "Bufala",
+                    "price": 6,
+                    "ingredients": [
+                        "tomato",
+                        "mozarella di bufala"
+                    ]
+                }, item_price: 6, qty: 1
+            }
         ]);
 
         const total = order.items.reduce((sum: number, item) => sum + item.item_price, 0);
@@ -46,7 +100,15 @@ describe('Order Controller', () => {
     it('should reject invalid pizza IDs', async () => {
         await expect(createOrder([
             {
-                pizza_id: '999', qty: 1,
+                pizza: {
+                    "id": "999",
+                    "name": "Invalid Pizza",
+                    "price": 5,
+                    "ingredients": [
+                        "tomato",
+                        "mozzarella"
+                    ]
+                }, qty: 1,
                 item_price: 0
             }
         ])).rejects.toThrow('Invalid pizza ID');

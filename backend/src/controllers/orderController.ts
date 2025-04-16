@@ -8,7 +8,7 @@ export const createOrder = async (items: OrderItems[]) => {
     const orders = await readData('orders.json');
 
     items.forEach((item) => {
-        const pizza = pizzas.find((p) => p.id === item.pizza_id);
+        const pizza = pizzas.find((p) => p.id === item.pizza.id);
         if (pizza) {
             item.item_price = pizza.price * item.qty;
         } else {
