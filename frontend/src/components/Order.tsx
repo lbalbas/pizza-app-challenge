@@ -1,18 +1,17 @@
-import { OrderItems, Pizza } from "../utils/types";
+import { OrderItems } from "../utils/types";
 import { api } from "../utils/api";
 import { toast } from 'react-toastify';
 export const Order = (_props: {
     order: OrderItems[],
-    pizzas: Pizza[]
+    setOrder: React.Dispatch<React.SetStateAction<OrderItems[]>>
 }) => {
-    const { order, pizzas } = _props;
-
-    const pizzaMap = new Map(pizzas.map(pizza => [pizza.id, pizza]));
+    const { order, setOrder } = _props;
 
     const submitOrder = async () => {
         try {
             const { data } = await api.post('/api/orders', { items: order });
             toast.success('Order placed successfully! Your order id is: ' + data.id);
+            setOrder([]);
         } catch (err) {
             console.error(err);
         }
@@ -24,18 +23,15 @@ export const Order = (_props: {
             <div className="w-full h-full p-2 flex flex-col gap-12">
                 <div>
 
-                    {order.map((item) => {
-                        const pizza = pizzaMap.get(item.pizza_id);
-                        return (
-                            <div key={item.pizza_id} className="flex justify-between">
-                                <p>{pizza!.name}<span className="text-gray-600"> x {item.qty}</span></p>
-                                <p>${item.qty * item.item_price}</p>
-                            </div>
-                        );
-                    })}
+                    {order.map((item) =>
+                        <div key={item.pizza.id} className="flex justify-between">
+                            <p>{item.pizza.name}<span className="text-gray-600"> x {item.qty}</span></p>
+                            <p>${item.item_price}</p>
+                        </div>
+                    )}
                     <div className="flex justify-between">
                         <p className="font-bold">Total:</p>
-                        <p className="font-bold">${order.reduce((total, item) => total + item.item_price * item.qty, 0)}</p>
+                        <p className="font-bold">${order.reduce((total, item) => total + item.item_price, 0)}</p>
                     </div>
                 </div>
                 <button onClick={submitOrder} className="py-2 px-4 bg-green-700 hover:bg-green-800 text-white rounded cursor-pointer">Confirm Order</button>
