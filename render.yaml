@@ -25,4 +25,4 @@ services:
       npm install && \
       echo "VITE_API_URL=https://pizza-app-backend.onrender.com" > .env.production && \
       npm run build
-    staticDir: frontend/dist
+    staticPublishPath: frontend/dist
