@@ -10,7 +10,34 @@ export const Order = (_props: {
     const submitOrder = async () => {
         try {
             const { data } = await api.post('/api/orders', { items: order });
-            toast.success('Order placed successfully! Your order id is: ' + data.id);
+            const OrderSuccessToast = () => (
+                <div className="text-sm">
+                    <h3 className="font-bold text-green-700">Order Placed Successfully!</h3>
+                    <p className="mt-1">Order ID: <span className="font-mono">{data.id}</span></p>
+                    <div className="mt-2 border-t pt-2">
+                        {data.items.map((item: OrderItems) => (
+                            <div key={item.pizza.id} className="flex justify-between">
+                                <span>{item.pizza.name} × {item.qty}</span>
+                                <span>${(item.item_price).toFixed(2)}</span>
+                            </div>
+                        ))}
+                    </div>
+                    <div className="mt-2 font-bold border-t pt-2 flex justify-between">
+                        <span>Total:</span>
+                        <span>${data.items.reduce((total: number, item: OrderItems) => total + item.item_price, 0).toFixed(2)}</span>
+                    </div>
+                </div>
+            );
+
+            toast.success(OrderSuccessToast, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
             setOrder([]);
         } catch (err) {
             console.error(err);
