@@ -52,13 +52,16 @@ A fullstack application built for Coding Cloud's technical interview.
    ```
 3. **Set up environment variables**
    Create a `.env` file in the `frontend` folder 
-  ```bash
+    ```bash
 	VITE_API_URL=http://localhost:5000
    ```
  ## Running the App
-  `npm run dev` starts the development server for both backend and frontend
-	   * Frontend:  `http://localhost:5173`
-	    * Backend:  `http://localhost:5000`
+ Start the development server for both backend and frontend:
+  ```bash
+	npm run dev
+   ```
+  * Frontend:  `http://localhost:5173`
+  * Backend:  `http://localhost:5000`
   ## Testing
   Run all tests with
   ```bash
