@@ -1,7 +1,7 @@
 import './App.css'
 import '/pizza-vector.svg';
 import { useEffect, useState } from 'react';
-import { ToastContainer } from 'react-toastify'
+import { toast, ToastContainer } from 'react-toastify'
 import { PizzaContainer } from './components/PizzaContainer'
 import { OrderItems, Pizza } from './utils/types';
 import { Order } from './components/Order';
@@ -22,6 +22,7 @@ function App() {
         setPizzas(data);
       } catch (err) {
         console.error('Failed to load pizzas:', err);
+        toast.error('Failed to load pizzas, check console for more details.');
       }
     };
     fetchPizzas();

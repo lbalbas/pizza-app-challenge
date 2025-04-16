@@ -14,6 +14,7 @@ export const Order = (_props: {
             setOrder([]);
         } catch (err) {
             console.error(err);
+            toast.error('Failed to place order, check console for more details.');
         }
     }
 
