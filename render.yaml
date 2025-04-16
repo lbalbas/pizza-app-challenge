@@ -15,7 +15,7 @@ services:
         value: 10000
     healthCheckPath: /api/pizzas
 
-  - type: web
+  - type: static
     name: pizza-app-frontend
     env: static
     region: ohio
