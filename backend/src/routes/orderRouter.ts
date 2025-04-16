@@ -15,7 +15,7 @@ router.post('/',
         body('items.*.qty')
             .isInt({ min: 1 }),
         body('items.*.item_price')
-            .isInt({ min: 1 })
+            .isFloat({ min: 1 })
     ],
     async (req: Request, res: Response) => {
         try {

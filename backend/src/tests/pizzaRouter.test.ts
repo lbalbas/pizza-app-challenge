@@ -4,7 +4,8 @@ import app from '../app';
 const testPizza = {
     id: '1',
     name: 'Margherita',
-    price: 5
+    price: 5,
+    ingredients: ['tomato', 'mozzarella']
 }
 
 describe('Pizza Routes', () => {
@@ -16,7 +17,8 @@ describe('Pizza Routes', () => {
                 expect.objectContaining({
                     id: expect.any(String),
                     name: expect.any(String),
-                    price: expect.any(Number)
+                    price: expect.any(Number),
+                    ingredients: expect.any(Array)
                 })
             ]));
         });
