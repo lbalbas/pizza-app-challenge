@@ -49,7 +49,7 @@ export const Order = (_props: {
         <div className="w-full mt-8 lg:mt-0 lg:w-3/12 text-stone-900 h-fit bg-stone-100 rounded-xl flex flex-col shadow-lg justify-between items-center p-4">
             <h1 className="text-center text-xl p-2 font-bold">Order Summary</h1>
             <div className="w-full h-full p-2 flex flex-col gap-12">
-                <div className="mt-2 border-t pt-2">
+                <div className="mt-2 border-t border-gray-300 pt-2">
 
                     {order.map((item) =>
                         <div key={item.pizza.id} className="flex justify-between">
@@ -57,7 +57,7 @@ export const Order = (_props: {
                             <p>${item.item_price}</p>
                         </div>
                     )}
-                    <div className="flex justify-between mt-2 border-t pt-2">
+                    <div className="flex justify-between mt-2 border-gray-300 border-t pt-2">
                         <p className="font-bold">Total:</p>
                         <p className="font-bold">${order.reduce((total, item) => total + item.item_price, 0)}</p>
                     </div>
