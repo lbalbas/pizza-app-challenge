@@ -8,11 +8,6 @@ const mockPizzas = [
 ];
 
 describe('PizzaContainer', () => {
-    it('displays loading when no pizzas', () => {
-        render(<PizzaContainer pizzas={[]} addPizzaToOrder={jest.fn()} />);
-        expect(screen.getByText('Loading...')).toBeInTheDocument();
-    });
-
     it('renders pizza menu items', () => {
         render(<PizzaContainer pizzas={mockPizzas} addPizzaToOrder={jest.fn()} />);
         expect(screen.getByText('Menu')).toBeInTheDocument();

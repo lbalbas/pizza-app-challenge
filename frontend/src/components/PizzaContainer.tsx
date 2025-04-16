@@ -6,10 +6,6 @@ export const PizzaContainer = (_props: {
 }) => {
     const { addPizzaToOrder, pizzas } = _props;
 
-    if (pizzas.length === 0) {
-        return <h1>Loading...</h1>;
-    }
-
     return (
         <main className="w-full">
             <h1 className="text-2xl lg:text-3xl p-2 text-stone-900 uppercase font-bold">Menu</h1>
@@ -27,7 +23,7 @@ export const PizzaContainer = (_props: {
                                 <p className="text-gray-600">{pizza.ingredients.join(', ')}</p>
                             </div>
                         </div>
-                        <button className="py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white rounded cursor-pointer" onClick={() => addPizzaToOrder(pizza)}>Add to order</button>
+                        <button className="py-2 px-4 bg-amber-600 hover:bg-amber-700 text-white rounded cursor-pointer" onClick={() => addPizzaToOrder(pizza)}>Add to order</button>
                     </article>
                 ))}
             </div>
