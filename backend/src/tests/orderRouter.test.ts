@@ -3,7 +3,12 @@ import app from '../app';
 import { writeData } from '../utils/db';
 
 const testOrderItem = {
-    pizza_id: '1',
+    pizza: {
+        id: '1',
+        name: 'Margherita',
+        price: 5,
+        ingredients: ['tomato', 'mozzarella']
+    },
     qty: 2,
     item_price: 10
 };
@@ -19,18 +24,20 @@ describe('Order Routes', () => {
             expect(res.body).toMatchObject({
                 id: expect.any(String),
                 items: [{
-                    pizza_id: testOrderItem.pizza_id,
+                    pizza: testOrderItem.pizza,
                     qty: testOrderItem.qty,
                     item_price: testOrderItem.item_price
-                }]
+                },
+                ],
+                total: testOrderItem.item_price,
             });
         });
 
         it('should validate order data', async () => {
             const tests = [
-                { items: [] }, // Empty array
-                { items: [{ pizza_id: '', qty: 0 }] }, // Invalid values
-                { items: [{ pizza_id: 'valid', qty: -1 }] } // Negative quantity
+                { items: [] },
+                { items: [{ pizza: {}, qty: 0 }] },
+                { items: [{ pizza: testOrderItem.pizza, qty: -1 }] }
             ];
 
             for (const body of tests) {
@@ -42,7 +49,6 @@ describe('Order Routes', () => {
 
     describe('GET /api/orders', () => {
         it('should return all orders', async () => {
-            // First create an order
             await request(app).post('/api/orders').send({ items: [testOrderItem] });
 
             const res = await request(app).get('/api/orders');
