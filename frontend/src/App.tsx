@@ -1,7 +1,7 @@
 import './App.css'
 import '/pizza-vector.svg';
 import { useEffect, useState } from 'react';
-import { ToastContainer } from 'react-toastify'
+import { toast, ToastContainer } from 'react-toastify'
 import { PizzaContainer } from './components/PizzaContainer'
 import { OrderItems, Pizza } from './utils/types';
 import { Order } from './components/Order';
@@ -22,21 +22,22 @@ function App() {
         setPizzas(data);
       } catch (err) {
         console.error('Failed to load pizzas:', err);
+        toast.error('Failed to load pizzas, check console for more details.');
       }
     };
     fetchPizzas();
   }, []);
 
   const addPizzaToOrder = (pizza: Pizza) => {
-    if (order.find((item) => item.pizza_id === pizza.id)) {
+    if (order.find((item) => item.pizza.id === pizza.id)) {
       setOrder(order.map((item) => {
-        if (item.pizza_id === pizza.id) {
-          return { ...item, qty: item.qty + 1 };
+        if (item.pizza.id === pizza.id) {
+          return { ...item, qty: item.qty + 1, item_price: item.item_price + pizza.price };
         }
         return item;
       }));
     } else {
-      setOrder([...order, { pizza_id: pizza.id, qty: 1, item_price: pizza.price }]);
+      setOrder([...order, { pizza: pizza, qty: 1, item_price: pizza.price }]);
     }
   }
 
@@ -54,7 +55,7 @@ function App() {
           <h1 className="text-center text-3xl lg:text-4xl font-bold mb-4 text-stone-900 flex items-center gap-2"> <img src="/pizza-vector.svg" className="w-16 h-16" alt="Pizza Illust" />PizzaApp</h1>
           <PizzaContainer pizzas={pizzas} addPizzaToOrder={addPizzaToOrder} />
         </div>
-        <Order pizzas={pizzas} order={order} />
+        <Order setOrder={setOrder} order={order} />
       </div>
       <ToastContainer />
     </div>

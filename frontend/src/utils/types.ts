@@ -12,7 +12,7 @@ export interface Order {
 }
 
 export interface OrderItems {
-    pizza_id: string,
+    pizza: Pizza,
     qty: number,
     item_price: number
 }
