@@ -3,23 +3,25 @@ services:
     name: pizza-app-backend
     env: node
     region: ohio
-    buildCommand: cd backend && npm install && npm run build
+    buildCommand: |
+      cd backend && \
+      npm install && \
+      npm run build
     startCommand: cd backend && npm start
     envVars:
       - key: NODE_ENV
         value: production
+      - key: PORT
+        value: 10000
     healthCheckPath: /api/pizzas
 
   - type: web
     name: pizza-app-frontend
-    env: node
+    env: static
     region: ohio
     buildCommand: |
-      cd frontend && npm install
-      echo "VITE_API_URL=https://pizza-app-backend.onrender.com" > .env.production
+      cd frontend && \
+      npm install && \
+      echo "VITE_API_URL=https://pizza-app-backend.onrender.com" > .env.production && \
       npm run build
-    startCommand: cd frontend && npm run preview
     staticDir: frontend/dist
-    envVars:
-      - key: NODE_ENV
-        value: production
