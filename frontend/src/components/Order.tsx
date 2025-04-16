@@ -19,7 +19,7 @@ export const Order = (_props: {
     }
 
     return (
-        <div className="w-full mt-8 lg:mt-0 lg:w-3/12 text-stone-900 h-full bg-stone-100 rounded-xl flex flex-col shadow-lg justify-between items-center p-4">
+        <div className="w-full mt-8 lg:mt-0 lg:w-3/12 text-stone-900 h-fit bg-stone-100 rounded-xl flex flex-col shadow-lg justify-between items-center p-4">
             <h1 className="text-center text-xl p-2 font-bold">Order Summary</h1>
             <div className="w-full h-full p-2 flex flex-col gap-12">
                 <div>
@@ -38,7 +38,7 @@ export const Order = (_props: {
                         <p className="font-bold">${order.reduce((total, item) => total + item.item_price * item.qty, 0)}</p>
                     </div>
                 </div>
-                <button onClick={submitOrder} className="py-2 px-4 bg-green-500 hover:bg-green-600 text-white rounded cursor-pointer">Confirm Order</button>
+                <button onClick={submitOrder} className="py-2 px-4 bg-green-700 hover:bg-green-800 text-white rounded cursor-pointer">Confirm Order</button>
             </div>
         </div>
     );
