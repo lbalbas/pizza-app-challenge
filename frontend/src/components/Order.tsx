@@ -44,6 +44,21 @@ export const Order = (_props: {
             toast.error('Failed to place order, check console for more details.');
         }
     }
+    const decreaseItemQty = (item: OrderItems) => {
+        if (item.qty > 1) {
+            setOrder(order.map((OrderItem) => {
+                if (OrderItem != item)
+                    return OrderItem;
+                else {
+                    return { ...item, qty: item.qty - 1, item_price: item.item_price - item.pizza.price };
+                }
+            }))
+        } else {
+            item.qty--
+            setOrder(order.filter((OrderItem) => OrderItem.qty > 0))
+        }
+    }
+
 
     return (
         <div className="w-full mt-8 lg:mt-0 lg:w-3/12 text-stone-900 h-fit bg-stone-100 rounded-xl flex flex-col shadow-lg justify-between items-center p-4">
@@ -52,7 +67,10 @@ export const Order = (_props: {
                 <div className="mt-2 border-t border-gray-300 pt-2">
 
                     {order.map((item) =>
-                        <div key={item.pizza.id} className="flex justify-between">
+                        <div key={item.pizza.id} className="group relative flex justify-between items-center">
+                            <div className="absolute hidden group-hover:flex items-center top-0 -left-3 w-4">
+                                <button className="font-bold text-red-400 cursor-pointer text-xl flex items-center" onClick={() => decreaseItemQty(item)}>-</button>
+                            </div>
                             <p>{item.pizza.name}<span className="text-gray-600"> x {item.qty}</span></p>
                             <p>${item.item_price}</p>
                         </div>
